@@ -10,13 +10,14 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-  <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
   
   
   <!--Scripts-->
   <script type="application/javascript" src="scripts/libraries/p5.js"></script>
   <script type="application/javascript" src="scripts/sim_main.js"></script>
   <script type="application/javascript" src="scripts/2d_ksp_objects.js"></script>
+  <script type="application/javascript" src="scripts/control.js"></script>
 
 </head>
 <body>
@@ -28,7 +29,12 @@
       var header_icon = document.getElementById('sidebar_button');
       if (sidebar_on == false){
         //sideb[0].style["transform"] = "translate(0,0)";
-        sideb[0].style["opacity"] = "1";
+        sideb[0].style["z-index"] = "999";
+        window.setTimeout(function () {
+          //sideb[0].style["opacity"] = "1";
+        },1)
+        
+        
         //header[0].style["transform"] = "translate(200px,0)";
         //header_icon.innerHTML = "<i class=\"fas fa-times\" onclick=\"sidebar()\"></i>";
         header_icon.children[0].style["transform"] = "rotate(-90deg)";
@@ -37,7 +43,10 @@
       else {
         //sideb[0].style["transform"] = "translate(-200px,0)";
         //header[0].style["transform"] = "translate(0,0)";
-        sideb[0].style["opacity"] = "0";
+        //sideb[0].style["opacity"] = "0";
+        window.setTimeout(function(){
+          sideb[0].style["z-index"] = "-1";
+        },0)
         //header_icon.innerHTML = "<i class=\"fas fa-bars\" onclick=\"sidebar()\"></i>";
         header_icon.children[0].style["transform"] = "rotate(0deg)";
         sidebar_on = false;

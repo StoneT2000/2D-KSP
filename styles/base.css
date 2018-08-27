@@ -57,8 +57,8 @@ body, html{
   background-color:whitesmoke;
   position: absolute;
   width:200px;
-  z-index:1000;
-  opacity: 0;
+  z-index:-1;
+  opacity: 1;
   border-radius:10px;
   left:10px;
   -webkit-transition:opacity 0.4s;

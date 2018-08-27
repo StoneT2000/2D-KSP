@@ -8,14 +8,16 @@ function setup() {
   kspcanvas.parent('gamedisplay')
     angleMode(DEGREES);
   stars.push(new star(250,250, 100000, 20, {"color": "#FF5D73"}));
-  planets.push(new planet(320, 270, 10, 10, {"color": "#CD9DC5"}))
+  planets.push(new planet(400, 200, 10, 10, {"color": "#CD9DC5"}, {"semi_major_axis": 200}))
   //planets.push(new planet(350, 250, 10, 10, {"color": "#fD0DC5"}))
   background("#494949");
 }
-
+var origin = [0,0]
+var zoom = 1;
 function draw() {
-  
-  
+  scale(zoom);
+  translate(origin[0],origin[1])
+  background("#494949");
   stroke(255);
   noFill();
   //ellipse(250,250,200);
@@ -29,11 +31,13 @@ function draw() {
       planets[i].update();
     }
     //planets[i].update_r();
+    planets[i].outline_path();
     planets[i].display();
-    //planets[i].outline_path();
+    
   }
-
+  key_functions();
 }
+
 
 function lineAngle(x1, y1, x2, y2) {
   var angleconstant = 0;
