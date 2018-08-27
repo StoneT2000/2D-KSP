@@ -2,8 +2,9 @@ var stars = [];
 var planets = [];
 var ships = [];
 var kspcanvas;
-var center_object = true;
-
+var center_object = false;
+var center_object_ref;
+//This is only really configured for a singular star system. Probably good enough, KSP doesn't have two stars anyway
 
 //Position of camera in true frame
 var camera_pos = [0,0]
@@ -12,9 +13,11 @@ function setup() {
   background(255,255,255);
   kspcanvas.parent('gamedisplay')
   angleMode(DEGREES);
-  stars.push(new star(250,250, 100000, 20, {"color": "#FF5D73"}));
-  planets.push(new planet(400, 200, 10, 10, {"color": "#CD9DC5"}, {"semi_major_axis": 200}))
-  //planets.push(new planet(350, 250, 10, 10, {"color": "#fD0DC5"}))
+  stars.push(new star(250,250, 100000, 90, {"color": "#FF5D73"}));
+  planets.push(new planet(800, 200, 10000, 30, {"color": "#CD9DC5"}, {"semi_major_axis": 500}))
+  planets.push(new planet(450, 30, 10, 20, {"color": "#fD0DC5"}, {"semi_major_axis": 360}))
+  planets.push(new planet(150, 230, 10, 10, {"color": "#6D9DC5"}, {"semi_major_axis": 100}))
+  ships.push(new ship(800,250, 10, 10, {"color":"#AEECEF"}, {"semi_major_axis": 500}))
   background("#494949");
   
   //Camera starts at middle
@@ -31,7 +34,7 @@ var zoom = 1;
 function draw() {
   
   if (center_object){
-    follow_object(planets[0])
+    follow_object(center_object_ref)
   }
   
   
@@ -46,15 +49,24 @@ function draw() {
   }
   
   for (var i = 0; i < planets.length; i++){
-    if (i>=0){
-      planets[i].update();
-    }
-    //planets[i].update_r();
+    //Update positions and etc.
+    planets[i].update();
     //Outline orbital path based on initial conditions and no decay
     planets[i].outline_path();
-    //Display planet
-    planets[i].display();
     
+  }
+  for (var i = 0; i < planets.length; i++){
+    planets[i].display();
+  }
+  for (var i = 0; i < ships.length; i++){
+    //Update positions and etc.
+    ships[i].update();
+    //Outline orbital path based on initial conditions and no decay
+    //ships[i].outline_path();
+    
+  }
+  for (var i = 0; i < ships.length; i++){
+    ships[i].display();
   }
   //Run through and check what keys are pressed and perform relevant functions
   key_functions();
