@@ -15,9 +15,13 @@ function setup() {
   angleMode(DEGREES);
   stars.push(new star(250,250, 100000, 90, {"color": "#FF5D73"}));
   planets.push(new planet(800, 200, 10000, 30, {"color": "#CD9DC5"}, {"semi_major_axis": 500}))
-  planets.push(new planet(450, 30, 10, 20, {"color": "#fD0DC5"}, {"semi_major_axis": 360}))
-  planets.push(new planet(150, 230, 10, 10, {"color": "#6D9DC5"}, {"semi_major_axis": 100}))
+  planets.push(new planet(450, 30, 6660, 20, {"color": "#fD0DC5"}, {"semi_major_axis": 360}))
+  planets.push(new planet(150, 230, 3330, 10, {"color": "#6D9DC5"}, {"semi_major_axis": 100}))
   ships.push(new ship(800,250, 10, 10, {"color":"#AEECEF"}, {"semi_major_axis": 500}))
+  
+  //We make a ship with the almost the same orbital parameters as one planet
+  //The following makes it go in orbit of that planet
+  ships[0].vx -= 0.34
   background("#494949");
   
   //Camera starts at middle

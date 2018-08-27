@@ -31,6 +31,8 @@ function key_functions() {
     zoom += 0.01 * scale_factor;
     origin[0] = (windowWidth / 2) / zoom - camera_pos[0];
     origin[1] = (windowHeight / 2) / zoom - camera_pos[1];
+    
+    //Make orbital path outline of a equal size regardless of zoom
     orbit_path_weight = 1 / zoom
 
   } else {
@@ -38,10 +40,13 @@ function key_functions() {
   }
   //- sign
   if (keyIsDown(173)) {
-    zoom -= 0.01 * scale_factor;
-    origin[0] = (windowWidth / 2) / zoom - camera_pos[0];
-    origin[1] = (windowHeight / 2) / zoom - camera_pos[1];
-    orbit_path_weight = 1 / zoom
+    if (zoom > 0.5){
+      zoom -= 0.01 * scale_factor;
+      origin[0] = (windowWidth / 2) / zoom - camera_pos[0];
+      origin[1] = (windowHeight / 2) / zoom - camera_pos[1];
+      orbit_path_weight = 1 / zoom
+    }
+    
   }
   
   //SHIP CONTROLS with ARROW KEYS

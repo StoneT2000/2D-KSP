@@ -1,4 +1,5 @@
-const G = 0.001;
+//Gravitaitonal constnat
+var G = 0.001;
 const TC = 1;
 var frame_rate = 60;
 //Everything is minified by 1000
@@ -15,7 +16,7 @@ function star(posx, posy, mass, radius, looks) {
     fill(looks['color']);
     resetMatrix();
     applyMatrix(zoom, 0, 0,zoom, 0, 0);
-    translate(posx+origin[0],posy+origin[1])
+    translate(this.pos.x+origin[0],this.pos.y+origin[1])
     ellipse(0,0, radius, radius);
     resetMatrix();
     
