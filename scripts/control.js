@@ -48,6 +48,7 @@ function key_functions() {
     }
     
   }
+
   
   //SHIP CONTROLS with ARROW KEYS
   //UP
@@ -68,6 +69,32 @@ function key_functions() {
   }
 
 }
+
+function keyTyped() {
+  if (key === '.') {
+    if (physics_delta < 4) {
+      physics_delta++;
+    } else if (physics_delta < 20) {
+      physics_delta += 2;
+    } else {
+      physics_delta += 10;
+    }
+    document.getElementById('speed_display').innerText = physics_delta + "x"
+  }
+  if (key === ',') {
+    if (physics_delta > 1){
+      if (physics_delta < 4) {
+        physics_delta--;
+      } else if (physics_delta < 20) {
+        physics_delta -= 2;
+      } else {
+        physics_delta -= 10;
+      }
+    }
+    document.getElementById('speed_display').innerText = physics_delta + "x"
+  }
+}
+
 var offsetx = 0;
 var offsety = 0;
 var anchor = [0, 0];
@@ -82,6 +109,36 @@ function follow_object(space_object) {
   camera_pos[0] = space_object.pos.x;
   camera_pos[1] = space_object.pos.y;
 }
+
+//Returns the true mouseX based on the coordinate system in place
+function real_mouseX() {
+  return camera_pos[0] + (mouseX - windowWidth/2)/zoom;
+}
+function real_mouseY() {
+  return camera_pos[1] + (mouseY - windowHeight/2)/zoom;
+}
+function mouseClicked() {
+  for (var i = 0; i < stars.length; i++){
+    if (sqdist(real_mouseX(),real_mouseY(),stars[i].pos.x,stars[i].pos.y) <= pow(stars[i].radius, 2)) {
+      follow_object(stars[i]);
+      return;
+    }
+  }
+  for (var i = 0; i < planets.length; i++){
+    if (sqdist(real_mouseX(),real_mouseY(),planets[i].pos.x,planets[i].pos.y) <= pow(planets[i].radius, 2)) {
+      follow_object(planets[i]);
+      return;
+    }
+  }
+  for (var i = 0; i < ships.length; i++){
+    if (sqdist(real_mouseX(),real_mouseY(),ships[i].pos.x,ships[i].pos.y) <= pow(ships[i].radius, 2)) {
+      follow_object(ships[i]);
+      return;
+    }
+  }
+}
+
+
 $(document).on("ready", function () {
 
 });

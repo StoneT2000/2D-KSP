@@ -15,6 +15,7 @@
   -->
   
   <link rel ="stylesheet" href="styles/base.css">
+  <link rel ="stylesheet" href="styles/index.css">
   <!--Scripts-->
   <script type="application/javascript" src="scripts/libraries/p5.js"></script>
   <script type="application/javascript" src="scripts/sim_main.js"></script>
@@ -55,6 +56,10 @@
       }
 
     }
+    function close_start_message() {
+      var start_message_div = document.getElementById('start_message');
+      start_message_div.style['display'] = 'none'
+    }
   </script>
   <script>
     window.onresize= function(){
@@ -64,8 +69,18 @@
   <div class="sidebar">
     <a class="header_link" style="margin-top:0px;" href="">Main Menu</a>
     <a class="header_link" href="">Settings</a>
-    <a class="header_link" href="">Save</a>
-    <a class="header_link" href="">Load</a>
+    <div class="header_link" onclick="follow_object(ships[0])">Center on Ship</div>
+  </div>
+  <div id="start_message">
+    <p>This is a 2D recreation of KSP made with HTML, JS, p5.JS, CSS. (Fairly reduced version)<br>
+      Press W,A,S,D to move camera around<br>
+      Press - or + to zoom in our out<br>
+      Press the arrow keys to add velocity in that direction to the spacecraft (The skyblue square)<br>
+      Press , or . to slow or speed up the game time <br>
+      Click on any object to automatically follow it<br><br>
+      <button id="close_start_message" onclick="close_start_message()">Close</button>
+    </p>
+    
   </div>
   <div class="header">
     <div id="sidebar_button">
@@ -73,6 +88,7 @@
       <div onclick="sidebar()" style="width:20px;height:20px;background-color: white;margin-top:20px;margin-left:30px;"></div>
     </div>
     <div class="header_title">2D KSP</div>
+    <div id="speed_display">1x</div>
   </div>
   <div class="container">
     <div id="gamedisplay">

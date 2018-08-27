@@ -1,5 +1,5 @@
 //Gravitaitonal constnat
-var G = 0.001;
+var G = 0.00001;
 const TC = 1;
 var frame_rate = 60;
 //Everything is minified by 1000
@@ -21,18 +21,20 @@ function star(posx, posy, mass, radius, looks) {
     resetMatrix();
     
   }
+  this.radius = radius/2;
 }
 
 function ship(posx,posy,mass,radius,looks,params){
   this.display = function() {
     fill(looks['color']);
     noStroke();
+    resetMatrix();
     applyMatrix(zoom, 0, 0,zoom, 0, 0);
     translate(this.pos.x+origin[0],this.pos.y+origin[1])
-    ellipse(0,0, radius, radius);
+    rect(0,0, radius, radius);
     resetMatrix();
   }
-
+  this.radius = radius/2
   this.pos = createVector(posx,posy);
   this.init_angle = lineAngle(stars[0].pos.x, stars[0].pos.y, this.pos.x,this.pos.y);
   this.dist_sun = sqrt(sqdist(stars[0].pos.x, stars[0].pos.y, this.pos.x,this.pos.y));
@@ -106,6 +108,7 @@ function planet(posx,posy, mass, radius, looks, params) {
   this.display = function() {
     fill(looks['color']);
     noStroke();
+    resetMatrix();
     applyMatrix(zoom, 0, 0,zoom, 0, 0);
     translate(this.pos.x+origin[0],this.pos.y+origin[1])
     ellipse(0,0, radius, radius);
@@ -118,7 +121,7 @@ function planet(posx,posy, mass, radius, looks, params) {
   this.semi_major_axis = 50*sqrt(2);
   this.relx = posx-stars[0].pos.x
   this.rely = posy-stars[0].pos.y
-  
+  this.radius = radius/2
   if (params){
     if (params['semi_major_axis']){
       this.semi_major_axis = params['semi_major_axis']
@@ -166,7 +169,7 @@ function planet(posx,posy, mass, radius, looks, params) {
   this.outline_path = function () {
     noFill();
     stroke(255);
-
+    resetMatrix();
     applyMatrix(zoom, 0, 0,zoom, 0, 0);
     strokeWeight(orbit_path_weight);
     translate(this.centerx+origin[0],this.centery+origin[1])

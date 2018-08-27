@@ -1,0 +1,27 @@
+#start_message {
+  position: fixed;
+  height:100%;
+  width:100%;
+  background-color: RGBA(50,50,50,0.7);
+ 
+}
+#start_message p {
+  height:300px;
+ text-align: center;
+  width:100%;
+  top:50%;
+  position: absolute;
+  margin-top:-150px;
+  
+}
+.header {
+  width:100%;
+}
+#speed_display {
+  float:right;
+  display:inline;
+  margin-top:15px;
+  margin-right:20px;
+  
+  font-size:30px;
+}

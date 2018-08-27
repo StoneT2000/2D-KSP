@@ -14,14 +14,15 @@ function setup() {
   kspcanvas.parent('gamedisplay')
   angleMode(DEGREES);
   stars.push(new star(250,250, 100000, 90, {"color": "#FF5D73"}));
-  planets.push(new planet(800, 200, 10000, 30, {"color": "#CD9DC5"}, {"semi_major_axis": 500}))
-  planets.push(new planet(450, 30, 6660, 20, {"color": "#fD0DC5"}, {"semi_major_axis": 360}))
+  planets.push(new planet(800, 200, 100000, 30, {"color": "#CD9DC5"}, {"semi_major_axis": 500}))
+  planets.push(new planet(90, 90, 6660, 20, {"color": "#fD0DC5"}, {"semi_major_axis": 220}))
   planets.push(new planet(150, 230, 3330, 10, {"color": "#6D9DC5"}, {"semi_major_axis": 100}))
-  ships.push(new ship(800,250, 10, 10, {"color":"#AEECEF"}, {"semi_major_axis": 500}))
-  
+  planets.push(new planet(350, 200, 3330, 10, {"color": "#D6DBB2"}, {"semi_major_axis": 300}))
+  ships.push(new ship(800,230, 10, 10, {"color":"#AEECEF"}, {"semi_major_axis": 500}))
+  rectMode(CENTER);
   //We make a ship with the almost the same orbital parameters as one planet
   //The following makes it go in orbit of that planet
-  ships[0].vx -= 0.34
+  ships[0].vx -= 0.174
   background("#494949");
   
   //Camera starts at middle
@@ -34,7 +35,7 @@ var origin = [0,0]
 
 //Zoom level
 var zoom = 1;
-
+var physics_delta = 1;
 function draw() {
   
   if (center_object){
@@ -48,26 +49,28 @@ function draw() {
   
   noFill();
   noStroke();
-  for (var i = 0; i < stars.length; i++) {
-    stars[i].display();
+  for (var k = 0; k < physics_delta; k++){
+    for (var i = 0; i < planets.length; i++){
+      //Update positions and etc.
+      planets[i].update();
+      
+
+    }
+    for (var i = 0; i < ships.length; i++) {
+      ships[i].update();
+    }
   }
-  
   for (var i = 0; i < planets.length; i++){
-    //Update positions and etc.
-    planets[i].update();
     //Outline orbital path based on initial conditions and no decay
     planets[i].outline_path();
     
   }
+  for (var i = 0; i < stars.length; i++) {
+    noStroke();
+    stars[i].display();
+  }
   for (var i = 0; i < planets.length; i++){
     planets[i].display();
-  }
-  for (var i = 0; i < ships.length; i++){
-    //Update positions and etc.
-    ships[i].update();
-    //Outline orbital path based on initial conditions and no decay
-    //ships[i].outline_path();
-    
   }
   for (var i = 0; i < ships.length; i++){
     ships[i].display();
