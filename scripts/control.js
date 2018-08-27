@@ -82,7 +82,7 @@ function keyTyped() {
     document.getElementById('speed_display').innerText = physics_delta + "x"
   }
   if (key === ',') {
-    if (physics_delta > 1){
+    if (physics_delta > 0){
       if (physics_delta < 4) {
         physics_delta--;
       } else if (physics_delta < 20) {
