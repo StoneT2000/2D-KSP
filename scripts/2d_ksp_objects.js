@@ -3,6 +3,8 @@ const TC = 1;
 var frame_rate = 60;
 //Everything is minified by 1000
 
+var orbit_path_weight = 1;
+
 //Display sizes are not proportional to mass or volume in any case
 function star(posx, posy, mass, radius, looks) {
   this.vx = 0;
@@ -11,7 +13,11 @@ function star(posx, posy, mass, radius, looks) {
   this.pos = createVector(posx,posy);
   this.display = function() {
     fill(looks['color']);
-    ellipse(posx, posy, radius, radius);
+    resetMatrix();
+    applyMatrix(zoom, 0, 0,zoom, 0, 0);
+    translate(posx+origin[0],posy+origin[1])
+    ellipse(0,0, radius, radius);
+    resetMatrix();
     
   }
 }
@@ -20,7 +26,10 @@ function planet(posx,posy, mass, radius, looks, params) {
   this.display = function() {
     fill(looks['color']);
     noStroke();
-    ellipse(this.pos.x, this.pos.y, radius, radius);
+    applyMatrix(zoom, 0, 0,zoom, 0, 0);
+    translate(this.pos.x+origin[0],this.pos.y+origin[1])
+    ellipse(0,0, radius, radius);
+    resetMatrix();
   }
 
   this.pos = createVector(posx,posy);
@@ -77,17 +86,15 @@ function planet(posx,posy, mass, radius, looks, params) {
   this.outline_path = function () {
     noFill();
     stroke(255);
-    //ellipse(this.focus2[0],this.focus2[1],20,20)
-    translate(this.centerx,this.centery)
+
+    applyMatrix(zoom, 0, 0,zoom, 0, 0);
+    strokeWeight(orbit_path_weight);
+    translate(this.centerx+origin[0],this.centery+origin[1])
     rotate(-this.init_angle)
     ellipse(0,0,this.semi_major_axis*2,this.semi_minor_axis*2)
-    rotate(this.init_angle)
-    translate(-this.centerx,-this.centery)
-    
-    //rotate(angle)
-    //ellipse(250,290, this.semi_major_axis*2, 90)
+    resetMatrix()
+  
   }
 
   
 }
-var angle = 10;

@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
   <title>My Site</title>
+  <!--
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-  <link rel ="stylesheet" href="styles/base.css">
+  
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+  -->
   
-  
+  <link rel ="stylesheet" href="styles/base.css">
   <!--Scripts-->
   <script type="application/javascript" src="scripts/libraries/p5.js"></script>
   <script type="application/javascript" src="scripts/sim_main.js"></script>
@@ -55,11 +57,9 @@
     }
   </script>
   <script>
-    $(document).on("ready", function() {
-      window.onresize= function(){
-        resizeCanvas(windowWidth,windowHeight);
-      }
-    })
+    window.onresize= function(){
+      resizeCanvas(windowWidth,windowHeight);
+    }
   </script>
   <div class="sidebar">
     <a class="header_link" style="margin-top:0px;" href="">Main Menu</a>
@@ -69,7 +69,8 @@
   </div>
   <div class="header">
     <div id="sidebar_button">
-      <i class="fas fa-bars" onclick="sidebar()"></i>
+      <!--<i class="fas fa-bars" onclick="sidebar()"></i>-->
+      <div onclick="sidebar()" style="width:20px;height:20px;background-color: white;margin-top:20px;margin-left:30px;"></div>
     </div>
     <div class="header_title">2D KSP</div>
   </div>
