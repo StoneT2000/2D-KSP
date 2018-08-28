@@ -4,6 +4,7 @@ var ships = [];
 var kspcanvas;
 var center_object = false;
 var center_object_ref;
+var focus_mode = false;
 //This is only really configured for a singular star system. Probably good enough, KSP doesn't have two stars anyway
 
 //Position of camera in true frame
@@ -15,23 +16,23 @@ function setup() {
   angleMode(DEGREES);
   stars.push(new star(250*pf,250*pf, 2*pow(10,30), 90, {"color": "#FF5D73"}));
   //EARTH
-  planets.push(new planet((250+1.496*1000)*pf, 250*pf, pow(10,1), 10, {"color": "#6D9DC5"}, {"semi_major_axis": 100*pf}))
-  planets.push(new planet(800*pf, 200*pf, pow(10,12), 30, {"color": "#CD9DC5"}, {"semi_major_axis": 500*pf}))
+  planets.push(new planet((250+1.496*1000)*pf, 250*pf, pow(10,1), 10, {"color": "#6D9DC5"}, {}))
+  planets.push(new planet(800*pf, 200*pf, pow(10,27), 40, {"color": "#CD9DC5"}, {}))
   planets.push(new planet(90*pf, 90*pf, pow(10,1), 20, {"color": "#fD0DC5"}, {"semi_major_axis": 220*pf}))
-  planets.push(new planet(150*pf, 230*pf, pow(10,1), 10, {"color": "#6D9DC5"}, {"semi_major_axis": 100*pf}))
+  planets.push(new planet(150*pf, 230*pf, pow(10,1), 10, {"color": "#6D9DC5"}, {"semi_major_axis": 90.9*pf}))
   planets.push(new planet(350*pf, 200*pf, pow(10,1), 10, {"color": "#D6DBB2"}, {"semi_major_axis": 300*pf}))
   
   
   
   
-  ships.push(new ship(800*pf,230*pf, 10, 10, {"color":"#AEECEF"}, {"semi_major_axis": 500*pf}))
-  
+  ships.push(new ship(800*pf,208*pf, 10, 2, {"color":"#AEECEF"}, {"semi_major_axis": 500*pf}))
+  ships[0].vx -= 6500
   
   rectMode(CENTER);
   //We make a ship with the almost the same orbital parameters as one planet
   //The following makes it go in orbit of that planet
   background("#494949");
-  ships[0].vx -= -55/10
+  //ships[0].vx -= -55/10
   //Camera starts at middle
   camera_pos[0]=windowWidth*pf/2;
   camera_pos[1] = windowHeight*pf/2;

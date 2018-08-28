@@ -5,31 +5,55 @@ function key_functions() {
   }
   //S
   if (keyIsDown(87)) {
-    origin[1] += 2 * scale_factor;
-    center_object = false;
-    camera_pos[1] -= 2 * scale_factor * pf;
+    origin[1] += 2 * scale_factor /zoom;
+
+    camera_pos[1] -= 2 * scale_factor * pf / zoom;
+    if (focus_mode){
+      offsety += 2 * scale_factor /zoom;
+    }
+    else {
+      center_object = false;
+    }
   }
   //W
   if (keyIsDown(83)) {
-    origin[1] -= 2 * scale_factor;
-    center_object = false;
-    camera_pos[1] += 2 * scale_factor * pf;
+    origin[1] -= 2 * scale_factor / zoom;
+
+    camera_pos[1] += 2 * scale_factor * pf / zoom;
+    if (focus_mode){
+      offsety -= 2 * scale_factor /zoom;
+    }
+    else {
+      center_object = false;
+    }
   }
   //D
   if (keyIsDown(68)) {
-    origin[0] -= 2 * scale_factor;
-    center_object = false;
-    camera_pos[0] += 2 * scale_factor * pf;
+    origin[0] -= 2 * scale_factor / zoom;
+    
+    camera_pos[0] += 2 * scale_factor * pf /  zoom;
+    if (focus_mode){
+      offsetx -= 2 * scale_factor /zoom;
+    }
+    else {
+      center_object = false;
+    }
   }
   //A
   if (keyIsDown(65)) {
-    origin[0] += 2 * scale_factor;
-    center_object = false;
-    camera_pos[0] -= 2 * scale_factor * pf;
+    origin[0] += 2 * scale_factor /  zoom;
+    
+    camera_pos[0] -= 2 * scale_factor * pf / zoom;
+    if (focus_mode){
+      offsetx += 2 * scale_factor /zoom;
+    }
+    else {
+      center_object = false;
+    }
   }
   //= sign
   if (keyIsDown(61)) {
-    zoom += 0.01 * scale_factor;
+    zoom += 0.01 * scale_factor * zoom;
     origin[0] = (windowWidth / 2) / zoom - camera_pos[0]/pf;
     origin[1] = (windowHeight / 2) / zoom - camera_pos[1]/pf;
     
@@ -42,7 +66,7 @@ function key_functions() {
   //- sign
   if (keyIsDown(173)) {
     if (zoom > 0.5){
-      zoom -= 0.01 * scale_factor;
+      zoom -= 0.01 * scale_factor * zoom;
       origin[0] = (windowWidth / 2) / zoom - camera_pos[0]/pf;
       origin[1] = (windowHeight / 2) / zoom - camera_pos[1]/pf;
       orbit_path_weight = 1 / zoom
@@ -140,6 +164,27 @@ function mouseClicked() {
   }
 }
 
+function focus_on(space_object) {
+  follow_object(space_object);
+  zoom = 40;
+  focus_mode = true;
+  origin[0] = (windowWidth / 2) / zoom - camera_pos[0]/pf;
+  origin[1] = (windowHeight / 2) / zoom - camera_pos[1]/pf;
+
+  //Make orbital path outline of a equal size regardless of zoom
+  orbit_path_weight = 1 / zoom
+}
+
+function unfocus() {
+  focus_mode = false;
+  zoom = 1;
+  origin[0] = (windowWidth / 2) / zoom - camera_pos[0]/pf;
+  origin[1] = (windowHeight / 2) / zoom - camera_pos[1]/pf;
+  center_object = false;
+  offsetx=0;
+  offsety=0;
+  orbit_path_weight = 1 / zoom
+}
 
 $(document).on("ready", function () {
 

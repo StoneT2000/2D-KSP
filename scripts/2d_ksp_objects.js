@@ -41,7 +41,7 @@ function star(posx, posy, mass, radius, looks) {
     fill(looks['color']);
     resetMatrix();
     applyMatrix(zoom, 0, 0,zoom, 0, 0);
-    translate((this.pos.x)/pf+origin[0],(this.pos.y)/pf+origin[1])
+    translate((this.pos.x)/pf+origin[0]+offsetx,(this.pos.y)/pf+origin[1]+offsety)
     ellipse(0,0, radius, radius);
     resetMatrix();
     
@@ -55,8 +55,13 @@ function ship(posx,posy,mass,radius,looks,params){
     noStroke();
     resetMatrix();
     applyMatrix(zoom, 0, 0,zoom, 0, 0);
-    translate((this.pos.x)/pf+origin[0],(this.pos.y)/pf+origin[1])
-    rect(0,0, radius, radius);
+    translate((this.pos.x)/pf+origin[0]+offsetx,(this.pos.y)/pf+origin[1]+offsety)
+    if (focus_mode){
+      rect(0,0, radius/10, radius/10);
+    }
+    else {
+      rect(0,0, radius, radius);
+    }
     resetMatrix();
   }
   this.mass = mass;
@@ -136,8 +141,14 @@ function planet(posx,posy, mass, radius, looks, params) {
     noStroke();
     resetMatrix();
     applyMatrix(zoom, 0, 0,zoom, 0, 0);
-    translate((this.pos.x)/pf+origin[0],(this.pos.y)/pf+origin[1])
-    ellipse(0,0, radius, radius);
+    translate((this.pos.x)/pf+origin[0]+offsetx,(this.pos.y)/pf+origin[1]+offsety)
+    if (focus_mode){
+      ellipse(0,0, radius/10, radius/10);
+    }
+    else {
+      ellipse(0,0, radius, radius);
+    }
+    
     resetMatrix();
   }
 
@@ -153,7 +164,7 @@ function planet(posx,posy, mass, radius, looks, params) {
       this.semi_major_axis = params['semi_major_axis']
     }
   }
-  this.semi_major_axis = this.dist_sun; //circularize orbit
+  //this.semi_major_axis = this.dist_sun; //circularize orbit
   this.mass = mass;
   this.semi_minor_axis = sqrt((this.rely*this.rely)/(1-(this.semi_major_axis*this.semi_major_axis/this.relx*this.relx)))
   
@@ -165,8 +176,8 @@ function planet(posx,posy, mass, radius, looks, params) {
 
   
   //this.centerx = stars[0].pos.x+this.linear_eccentricity;
-  this.centerx = stars[0].pos.x + diffsm*cos(this.init_angle)/pf
-  this.centery = stars[0].pos.y - diffsm*sin(this.init_angle)/pf
+  this.centerx = stars[0].pos.x + diffsm*cos(this.init_angle)
+  this.centery = stars[0].pos.y - diffsm*sin(this.init_angle)
   
   this.linear_eccentricity = sqrt(sqdist_real(this.centerx,this.centery,stars[0].pos.x,stars[0].pos.y));
   this.eccentrictiy = this.linear_eccentricity/this.semi_major_axis;
@@ -188,7 +199,7 @@ function planet(posx,posy, mass, radius, looks, params) {
     this.vy += acc_y*physics_acc;
     
   }
-
+  this.orbital_period = (sqrt(((4*3.141*3.141)/(stars[0].mass * G)) * pow(this.semi_major_axis,3)))/frame_rate;
   this.correct_parameters = function () {
     
   }
@@ -198,7 +209,7 @@ function planet(posx,posy, mass, radius, looks, params) {
     resetMatrix();
     applyMatrix(zoom, 0, 0,zoom, 0, 0);
     strokeWeight(orbit_path_weight);
-    translate((this.centerx)/pf+origin[0],(this.centery)/pf+origin[1])
+    translate((this.centerx)/pf+origin[0]+offsetx,(this.centery)/pf+origin[1]+offsety)
     rotate(-this.init_angle)
     ellipse(0,0,this.semi_major_axis*2/pf,this.semi_minor_axis*2/pf)
     resetMatrix()
