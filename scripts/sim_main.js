@@ -13,21 +13,28 @@ function setup() {
   background(255,255,255);
   kspcanvas.parent('gamedisplay')
   angleMode(DEGREES);
-  stars.push(new star(250,250, 100000, 90, {"color": "#FF5D73"}));
-  planets.push(new planet(800, 200, 100000, 30, {"color": "#CD9DC5"}, {"semi_major_axis": 500}))
-  planets.push(new planet(90, 90, 6660, 20, {"color": "#fD0DC5"}, {"semi_major_axis": 220}))
-  planets.push(new planet(150, 230, 3330, 10, {"color": "#6D9DC5"}, {"semi_major_axis": 100}))
-  planets.push(new planet(350, 200, 3330, 10, {"color": "#D6DBB2"}, {"semi_major_axis": 300}))
-  ships.push(new ship(800,230, 10, 10, {"color":"#AEECEF"}, {"semi_major_axis": 500}))
+  stars.push(new star(250*pf,250*pf, 2*pow(10,30), 90, {"color": "#FF5D73"}));
+  //EARTH
+  planets.push(new planet((250+1.496*1000)*pf, 250*pf, pow(10,1), 10, {"color": "#6D9DC5"}, {"semi_major_axis": 100*pf}))
+  planets.push(new planet(800*pf, 200*pf, pow(10,12), 30, {"color": "#CD9DC5"}, {"semi_major_axis": 500*pf}))
+  planets.push(new planet(90*pf, 90*pf, pow(10,1), 20, {"color": "#fD0DC5"}, {"semi_major_axis": 220*pf}))
+  planets.push(new planet(150*pf, 230*pf, pow(10,1), 10, {"color": "#6D9DC5"}, {"semi_major_axis": 100*pf}))
+  planets.push(new planet(350*pf, 200*pf, pow(10,1), 10, {"color": "#D6DBB2"}, {"semi_major_axis": 300*pf}))
+  
+  
+  
+  
+  ships.push(new ship(800*pf,230*pf, 10, 10, {"color":"#AEECEF"}, {"semi_major_axis": 500*pf}))
+  
+  
   rectMode(CENTER);
   //We make a ship with the almost the same orbital parameters as one planet
   //The following makes it go in orbit of that planet
-  ships[0].vx -= 0.174
   background("#494949");
-  
+  ships[0].vx -= -55/10
   //Camera starts at middle
-  camera_pos[0]=windowWidth/2;
-  camera_pos[1] = windowHeight/2;
+  camera_pos[0]=windowWidth*pf/2;
+  camera_pos[1] = windowHeight*pf/2;
 }
 
 //Used to translate the objects in the true frame to a relative frame
@@ -93,5 +100,8 @@ function lineAngle(x1, y1, x2, y2) {
   return -atan((y2 - y1) / (x2 - x1)) + angleconstant;
 }
 function sqdist(x1,y1,x2,y2){
+  return (pow((x2-x1), 2) + pow((y2-y1), 2)) * pf * pf
+}
+function sqdist_real(x1,y1,x2,y2) {
   return (pow((x2-x1), 2) + pow((y2-y1), 2))
 }
